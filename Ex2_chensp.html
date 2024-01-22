@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        #list-giaodien {
+            list-style-type: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #list-giaodien li {
+            margin: 10px;
+        }
+
+        .product-card {
+            width: 200px;
+            height: 300px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 70%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>New Product</h1>
+    <form name="fm">
+        <div class="container" style="padding: 5px">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label for="name">
+                        Product Name: <br />
+                        <input type="text" name="name" id="name" />
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <label for="picture">
+                        Product Picture: <br />
+                        <input type="file" name="picture" id="picture" />
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <label for="price">
+                        Product Price: <br />
+                        <input type="text" name="price" id="price" />
+                    </label>
+                </div>
+            </div>
+        </div>
+        <center><p><button type="button" id="add" style="background-color: rgb(45, 245, 45);">Add</button></p></center>
+    </form>
+
+    <div id="giaodien">
+        <center><h3>Điện thoại nổi bậc nhất</h3></center>
+        <ul id="list-giaodien"></ul>
+    </div>
+
+    <script type="text/javascript">
+        function add() {
+            var name = document.getElementById("name").value;
+            var picture = document.getElementById("picture").files;
+            var price = document.getElementById("price").value;
+            if (name && price && picture.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    var url = event.target.result;
+                    var listCard = document.getElementById("list-giaodien");
+                    var liTag = document.createElement("li");
+                    liTag.innerHTML = `
+                        <div class="p-2 border border-slate-500 rounded-lg space-y-1 h-full flex flex-col product-card">
+                            <img src="${url}" alt="" />
+                            <strong class="block">${name}</strong>
+                            <p>${price}đ</p>
+                            <button class="py-1 px-3 text-black bg-green-500 rounded-lg" style="background-color: rgb(45, 245, 45);">Đặt mua</button>
+                        </div>
+                    `;
+                    liTag.classList.add("col-span-1", "h-full");
+                    listCard.appendChild(liTag);
+                    reset();
+                };
+                reader.readAsDataURL(picture[0]);
+            }
+        }
+
+        function reset() {
+            document.getElementById("name").value = "";
+            document.getElementById("picture").value = "";
+            document.getElementById("price").value = "";
+        }
+
+        // Gọi hàm add() khi trang tải xong
+        window.addEventListener("load", function() {
+            document.getElementById("add").addEventListener("click", add);
+        });
+    </script>
+</body>
+</html>

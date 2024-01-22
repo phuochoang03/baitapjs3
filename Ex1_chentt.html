@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Product</title>
+    <style type>
+        table{
+            width: 600px;
+            border-spacing: 0;
+            border: 1px solid #bbb;
+        }
+        #tbl tr{
+            height: 27px;
+        }
+        #tbl tr th, #tbl tr td{
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+
+        }
+        #tbl tr:last-child td{
+            border: none;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>New product</h1>
+    <hr />
+    <form name="frm">
+        <p>
+            <label for="">
+                Product name
+                <input type="text" name="pname" id="pname">
+            </label>
+            <label for="">
+                Quantity
+                <input type="text" name="qty" id="qty">
+            </label>
+            <label for="">
+                Unit Price
+                <input type="text" name="up" id="up">
+            </label>
+            <label for="">
+                Discount
+                <input type="text" name="dc" id="dc">
+            </label>
+        </p>
+        <p>
+            <center>
+                <button type="button" onclick="sell()" >Sell</button>
+                <button type="button" onclick="cancel()">Cancel</button>
+            </center>
+        </p>
+    </form>
+
+    <center>
+        <table id="tbl">
+            <tr>
+                <th style="padding: 0 10px">ID</th>
+                <TH style="padding: 0 10px">Product name</TH>
+                <th style="padding: 0 10px">Quantity</th>
+                <th style="padding: 0 10px">Unit Price</th>
+                <th style="padding: 0 10px">Discount</th>
+                <th style="padding: 0 10px">Subtobal</th>
+            </tr>
+        
+        </table>
+    </center>
+    
+    <script type="text/javascript">
+        var id=0;
+        function sell()
+        {
+            id++;
+            var pname= frm.pname.value;
+            var qty = frm.qty.value;
+            var price = frm.up.value;
+            var dc = frm.dc.value;
+            var sub = qty*price*(1-dc/100);
+            var row = "<tr>";
+            row += "<td>"+ id +"</td>";
+            row += "<td>"+ pname +"</td>";
+            row += "<td>"+ qty +"</td>";
+            row += "<td>"+ price +"</td>";
+            row += "<td>"+ dc +"</td>";
+            row += "<td>"+ sub +"</td>";
+            row += "</tr>";
+            document.getElementById("tbl").innerHTML +=row;
+        }
+
+        function cancel()
+        {
+            document.getElementById("pname").value='';
+            document.getElementById("qty").value='';
+            document.getElementById("up").value='';
+            document.getElementById("dc").value='';
+
+        }
+    </script>
+</body>
+</html>
